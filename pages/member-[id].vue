@@ -16,7 +16,7 @@
           <p class="text-muted mb-0">Name: {{ member.attributes.name }}</p>
           <p class="text-muted mb-0">Gender: {{ member.attributes.gender }}</p>
           <p class="text-muted mb-0">DOB: {{ member.attributes.dob }}</p>
-          <p class="text-muted mb-0">Marital Status: {{ member.attributes.status }}</p>
+          <p class="text-muted mb-0">Marital Status: {{ member.attributes.marital_status }}</p>
         </div>
       </div>
     </div>
