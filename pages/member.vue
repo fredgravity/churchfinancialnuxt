@@ -26,10 +26,10 @@
                   {{ member.attributes.dob }}
                 </td>
                 <td>
-                  {{ member.attributes.phone }}
+                  <span class="badge bg-label-primary me-1">{{ member.attributes.email }}</span>
                 </td>
                 <td>
-                  <span class="badge bg-label-primary me-1">{{ member.attributes.email }}</span>
+                  {{ member.attributes.phone }}
                 </td>
                 <td>
                   <div class="dropdown">
