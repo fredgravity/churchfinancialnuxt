@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         },
     },
     plugins: [
-        '@/plugins/flowbite.client.ts'
+        // '@/plugins/flowbite.client.ts'
     ],
     ssr: false, 
     target: 'static',
