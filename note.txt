@@ -1,0 +1,41 @@
+npm i -D @nuxtjs/tailwindcss@latest
+
+npx tailwindcss init
+
+// https://v3.nuxtjs.org/api/configuration/nuxt.config
+modules: [
+        '@nuxtjs/tailwindcss'
+    ],
+    postcss: {
+        plugins: {
+           tailwindcss: {},
+           autoprefixer: {},
+        },
+    },
+    css: [
+        '@/assets/css/main.css',
+    ],
+
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./nuxt.config.{js,ts}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+npm install pinia @pinia/nuxt @nuxtjs/composition-api --legacy-peer-deps
