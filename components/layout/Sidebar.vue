@@ -86,6 +86,29 @@
           </li>
         </ul>
       </li>
+      <!-- financials -->
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Financials</span>
+      </li>
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Finance</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/tithe" class="menu-link">
+              <div data-i18n="Without menu">Tithe</div>
+            </a>
+          </li>
+          <!-- <li class="menu-item">
+            <a href="/addMember" class="menu-link">
+              <div data-i18n="Without navbar">Add Tithe</div>
+            </a>
+          </li> -->
+        </ul>
+      </li>
     </ul>
   </aside>
   <!-- / Menu -->
