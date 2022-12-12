@@ -37,6 +37,15 @@ export default {
   head() {
     return {
       title: "Church Management System", // Other meta information
+      meta: [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        {
+          hid: "Church",
+          name: "Church Finance",
+          content: "Church Finance",
+        },
+      ],
       script: [
         { hid: "qq", src: "./assets/vendor/libs/jquery/jquery.js", defer: false, body: true },
         { hid: "menu", src: "./assets/vendor/js/menu.js", defer: false, body: true },

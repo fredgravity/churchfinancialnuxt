@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="p-2 border-b border-blue-300 mb-2">Member Details</div>
+      <div class="p-2 border-b border-blue-300 mb-2">add member details</div>
     </div>
 
     <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
@@ -20,84 +20,40 @@
         </div>
       </div>
     </div>
-    <hr class="my-0" />
-    <div class="ml-4 mt-3 font-bold">Spouse Information</div>
-    <div class="card-body">
-      <form id="formAccountSettings" method="POST" onsubmit="return false">
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="name" class="form-label">Spouse Name</label>
-            <input class="form-control" type="text" id="name" v-model="spouse.name" name="name" autofocus />
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="home_town" class="form-label">Home Town</label>
-            <input class="form-control" type="text" name="home_town" id="home_town" v-model="spouse.home_town" />
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label class="form-label" for="phone">Phone Number</label>
-            <div class="input-group input-group-merge">
-              <!-- <span class="input-group-text">US (+1)</span> -->
-              <input type="text" id="phone" name="phone" class="form-control" placeholder="202 555 0111" v-model="spouse.phone" />
+    <hr class="border-b border-blue-300 mb-4" />
+    <div class="row">
+      <div class="w-full mx-2">
+        <div class="nav-align-top mb-4">
+          <ul class="nav nav-pills mb-3" role="tablist">
+            <li class="nav-item">
+              <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#pills-spouse" aria-controls="navs-pills-top-home" aria-selected="true">Spouse</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-children" aria-controls="navs-pills-top-profile" aria-selected="false">Children</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-parent" aria-controls="navs-pills-top-messages" aria-selected="false">Parent</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-occupation" aria-controls="navs-pills-top-messages" aria-selected="false">Occupation</button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="pills-spouse" role="tabpanel">
+              <MoreInfoSpouse />
+            </div>
+            <div class="tab-pane fade" id="pills-children" role="tabpanel">
+              <MoreInfoChildren />
+            </div>
+            <div class="tab-pane fade" id="pills-parent" role="tabpanel">
+              <MoreInfoParent />
+            </div>
+            <div class="tab-pane fade" id="pills-occupation" role="tabpanel">
+              <MoreInfoOccupation />
             </div>
           </div>
-          <div class="mb-3 col-md-6">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="Address" v-model="spouse.address" />
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="dob" class="col-md-2 col-form-label">Date of Birth</label>
-            <div class="col-md-10">
-              <input class="form-control" type="date" id="dob" v-model="spouse.dob" />
-            </div>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="status" class="form-label">Status</label>
-            <select id="status" class="select2 form-select" v-model="spouse.status">
-              <!-- <option value="">Select Language</option> -->
-              <option value="alive">Alive</option>
-              <option value="dead">Dead</option>
-            </select>
-          </div>
         </div>
-        <div class="mt-2">
-          <button type="submit" class="btn btn-primary me-2" @click="submitSpouse">Add Spouse</button>
-        </div>
-      </form>
-    </div>
-
-    <hr class="my-0" />
-    <div class="ml-4 mt-3 font-bold">Children Information</div>
-    <div class="card-body">
-      <form id="formAccountSettings" method="POST" onsubmit="return false">
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="name" class="form-label">Child Name</label>
-            <input class="form-control" type="text" id="name" name="name" v-model="child.name" autofocus />
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="dob" class="col-md-2 col-form-label">Date of Birth</label>
-            <div class="col-md-10">
-              <input class="form-control" type="date" id="dob" v-model="child.dob" />
-            </div>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="gender" class="form-label">Gender</label>
-            <select id="gender" class="select2 form-select" v-model="child.gender">
-              <!-- <option value="">Select Language</option> -->
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-        </div>
-        <div class="mt-2">
-          <button type="submit" class="btn btn-primary me-2" @click="submitChild">Add Child</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -110,23 +66,6 @@ const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
 const member = ref([]);
 const error_message = ref("");
-
-const spouse = reactive({
-  name: "",
-  status: "",
-  phone: "",
-  address: "",
-  home_town: "",
-  dob: "",
-  member_id: route.params.id,
-});
-
-const child = reactive({
-  name: "",
-  gender: "",
-  dob: "",
-  member_id: route.params.id,
-});
 
 onMounted(async () => {
   const member_id = route.params.id;
@@ -144,58 +83,6 @@ onMounted(async () => {
   console.log(data.value);
   member.value = data.value.data;
 });
-
-let submitSpouse = async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/member-spouse", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    body: spouse,
-    initialCache: false,
-  });
-
-  console.log(data.value);
-  if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    error_message.value = "Church member's spouse added successfully!";
-    spouse.name = "";
-    spouse.phone = "";
-    spouse.home_town = "";
-    spouse.address = "";
-    spouse.status = "";
-    spouse.dob = "";
-  }
-};
-
-let submitChild = async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/member-children", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    body: child,
-    initialCache: false,
-  });
-
-  console.log(data.value);
-  if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    error_message.value = "Church member's child added successfully!";
-    spouse.name = "";
-    spouse.gender = "";
-    spouse.home_town = "";
-    spouse.dob = "";
-  }
-};
 </script>
 
 <style></style>

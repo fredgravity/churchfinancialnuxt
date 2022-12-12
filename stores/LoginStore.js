@@ -11,7 +11,7 @@ export const useLoginStore = defineStore('login', {
     }),
     getters:{
         getUser: async (state) => {
-            console.log(await state.user)
+            // console.log(await state.user)
             if (Object.keys(state.user).length !== 0){
                 
                 return state.user
@@ -19,7 +19,8 @@ export const useLoginStore = defineStore('login', {
             return false
         },
         getAccessToken: async (state) =>{
-            return state.token
+         
+            return  state.token
         }
     },
     actions: {
@@ -61,14 +62,23 @@ export const useLoginStore = defineStore('login', {
                 // localStorage.setItem('refreshToken', JSON.stringify(data.value.refresh))
         },
         async logout() {
-            localStorage.removeItem('user')
-            localStorage.removeItem('accessToken')
+            let accessToken = await this.getAccessToken;
             const { data, error, refresh } = await useFetch(this.api_base+"/logout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": 'application/json' },
+                method: "get",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Accept": 'application/json', 
+                    Authorization: "Bearer " + accessToken.accessToken, 
+                },
                 initialCache: false
             });
-            window.location.href = '/'
+            if(!error.value){
+                localStorage.removeItem('user')
+                localStorage.removeItem('accessToken')
+                window.location.href = '/'
+
+            }
+            
           }
     }
 })

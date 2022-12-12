@@ -56,29 +56,39 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Groups & Association</span>
       </li>
-      <!-- groups -->
+      <!-- assembly -->
       <li class="menu-item">
         <a href="#" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-layout"></i>
-          <div data-i18n="Layouts">Groups</div>
+          <div data-i18n="Layouts">Assembly</div>
         </a>
 
         <ul class="menu-sub">
-          <!-- <li class="menu-item">
+          <li class="menu-item">
             <a href="/assembly" class="menu-link">
               <div data-i18n="Without menu">Assembly</div>
             </a>
-          </li> -->
+          </li>
           <li class="menu-item">
             <a href="/addAssembly" class="menu-link">
               <div data-i18n="Without navbar">Add Assembly</div>
             </a>
           </li>
-          <!-- <li class="menu-item">
+        </ul>
+      </li>
+      <!-- ministry -->
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Ministry</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
             <a href="/ministry" class="menu-link">
               <div data-i18n="Without navbar">Ministry</div>
             </a>
-          </li> -->
+          </li>
           <li class="menu-item">
             <a href="/addMinistry" class="menu-link">
               <div data-i18n="Without navbar">Add Ministry</div>
@@ -93,13 +103,23 @@
       <li class="menu-item">
         <a href="#" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-layout"></i>
-          <div data-i18n="Layouts">Finance</div>
+          <div data-i18n="Layouts">Tithe</div>
         </a>
 
         <ul class="menu-sub">
           <li class="menu-item">
             <a href="/tithe" class="menu-link">
-              <div data-i18n="Without menu">Tithe</div>
+              <div data-i18n="Without menu">All Tithe</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/titheMember" class="menu-link">
+              <div data-i18n="Without menu">Members Tithe</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addTithe" class="menu-link">
+              <div data-i18n="Without menu">Add Tithe</div>
             </a>
           </li>
           <!-- <li class="menu-item">
@@ -107,6 +127,87 @@
               <div data-i18n="Without navbar">Add Tithe</div>
             </a>
           </li> -->
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Finance</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/budgetItem" class="menu-link">
+              <div data-i18n="Without menu">Budget Item</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addBudgetItem" class="menu-link">
+              <div data-i18n="Without menu">Add Budget Item</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/budget" class="menu-link">
+              <div data-i18n="Without menu">Budget</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addBudget" class="menu-link">
+              <div data-i18n="Without navbar">Add Budget</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/expenditure" class="menu-link">
+              <div data-i18n="Without menu">Expenditure</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addExpenditure" class="menu-link">
+              <div data-i18n="Without navbar">Add Expenditure</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/income" class="menu-link">
+              <div data-i18n="Without menu">Income</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addIncome" class="menu-link">
+              <div data-i18n="Without navbar">Add Income</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Trainings</span>
+      </li>
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Trainings</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/trainingItem" class="menu-link">
+              <div data-i18n="Without menu">Training Item</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="addTrainingItem" class="menu-link">
+              <div data-i18n="Without menu">Add Training Items</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/training" class="menu-link">
+              <div data-i18n="Without menu">Training</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addTraining" class="menu-link">
+              <div data-i18n="Without menu">Add Training</div>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>
