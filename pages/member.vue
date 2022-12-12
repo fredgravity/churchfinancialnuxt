@@ -30,7 +30,7 @@ const columnDefs = reactive([
 
 const recordClick = (event) => {
   console.log(event);
-  // window.location.href = "/memberDetail-" + event.data.id;
+  window.location.href = "/memberDetail-" + event.data.id;
 };
 
 onMounted(async () => {
