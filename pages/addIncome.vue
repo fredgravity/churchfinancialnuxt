@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <div class="col-xl-6">
+        <div class="">
           <div class="nav-align-top mb-4">
             <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
               <li class="nav-item">
