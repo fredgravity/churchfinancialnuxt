@@ -25,11 +25,14 @@ const columnDefs = reactive([
   { headerName: "Pastor", field: "pastor" },
   { headerName: "Status", field: "status" },
   { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
+  { headerName: "Action", field: "action" },
 ]);
 
 const recordClick = (event) => {
   console.log(event.data);
-  window.location.href = "/assemblyDetail-" + event.data.id;
+  if (event.value == "Edit") {
+    window.location.href = "/assemblyDetail-" + event.data.id;
+  }
 };
 
 onMounted(async () => {
@@ -55,6 +58,7 @@ onMounted(async () => {
       status: res.attributes.status,
       openedOn: res.attributes.openedOn,
       id: res.id,
+      action: "Edit",
     };
     return mine;
   });

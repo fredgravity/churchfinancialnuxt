@@ -48,6 +48,7 @@ const defaultColDef = {
   sortable: true,
   filter: true,
   flex: 1,
+  resizable: true,
   editable: true,
 };
 </script>

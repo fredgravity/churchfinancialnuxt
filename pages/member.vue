@@ -25,12 +25,15 @@ const columnDefs = reactive([
   { headerName: "Phone", field: "phone" },
   { headerName: "Assembly", field: "assembly" },
   { headerName: "Ministry", field: "ministry" },
+  { headerName: "Action", field: "action" },
   // { headerName: "Action", field: "action" },
 ]);
 
 const recordClick = (event) => {
   console.log(event);
-  window.location.href = "/memberDetail-" + event.data.id;
+  if (event.value == "Edit") {
+    window.location.href = "/memberDetail-" + event.data.id;
+  }
 };
 
 onMounted(async () => {
@@ -60,6 +63,7 @@ onMounted(async () => {
       assembly: res.attributes.assembly.name,
       ministry: res.attributes.ministry.name,
       openedOn: res.attributes.openedOn,
+      action: "Edit",
       // action: "More >>",
       id: res.id,
     };

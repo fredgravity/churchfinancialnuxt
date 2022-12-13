@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="p-2 border-b border-blue-300 mb-2">member</div>
+    <div class="p-2 border-b border-blue-300 mb-2">ministry</div>
     <Loading :loading="loading" />
 
     <div>
@@ -16,10 +16,15 @@ const ministries = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
 
-const columnDefs = reactive([{ headerName: "Name", field: "name" }]);
+const columnDefs = reactive([
+  { headerName: "Name", field: "name" },
+  { headerName: "Action", field: "action" },
+]);
 
 const recordClick = (event) => {
-  window.location.href = "/editMinistry-" + event.data.id;
+  if (event.value == "Edit") {
+    window.location.href = "/editMinistry-" + event.data.id;
+  }
 };
 
 onMounted(async () => {
@@ -42,6 +47,7 @@ onMounted(async () => {
     let mine = {
       name: res.attributes.name,
       id: res.id,
+      action: "Edit",
     };
     return mine;
   });
