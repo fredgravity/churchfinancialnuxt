@@ -56,6 +56,46 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Groups & Association</span>
       </li>
+      <!-- area -->
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Area</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/area" class="menu-link">
+              <div data-i18n="Without menu">Area</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addArea" class="menu-link">
+              <div data-i18n="Without navbar">Add Area</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- district -->
+      <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">District</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/district" class="menu-link">
+              <div data-i18n="Without menu">District</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/addDistrict" class="menu-link">
+              <div data-i18n="Without navbar">Add District</div>
+            </a>
+          </li>
+        </ul>
+      </li>
       <!-- assembly -->
       <li class="menu-item">
         <a href="#" class="menu-link menu-toggle">

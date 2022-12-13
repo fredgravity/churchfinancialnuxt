@@ -39,8 +39,8 @@
         </div>
       </div>
     </div>
-    <div class="font-normal mx-3 btn btn-sm w-full mb-2 btn-outline-primary text-blue-500 cursor-pointer" data-bs-toggle="modal" data-bs-target="#editSpouse">Edit</div>
-    <a :href="'/member-' + member.id" class="font-normal mx-3 btn btn-sm w-full mb-2 btn-outline-primary text-blue-500 cursor-pointer">Add More Info</a>
+    <div class="font-normal ml-3 btn btn-sm w-full mb-2 btn-outline-primary text-blue-500 cursor-pointer" data-bs-toggle="modal" data-bs-target="#editSpouse">Edit</div>
+    <a :href="'/member-' + member.id" class="font-normal ml-3 btn btn-sm w-full mb-2 btn-outline-primary text-blue-500 cursor-pointer">Add More Info</a>
     <hr class="my-0" />
     <div class="ml-4 mt-3 font-bold">Spouse History</div>
     <div class="flex flex-wrap md:flex-nowrap mx-3" v-if="member.attributes">
