@@ -106,7 +106,7 @@ onMounted(async () => {
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/district/", {
+  const { data, error, refresh } = await useFetch(api_base + "/district", {
     method: "get",
     headers: {
       "Content-Type": "application/json",
