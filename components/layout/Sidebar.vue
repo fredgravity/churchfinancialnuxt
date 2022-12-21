@@ -23,7 +23,7 @@
         </a>
       </li>
 
-      <li class="menu-item" v-if="userId == 1">
+      <li class="menu-item" v-if="getUserID">
         <a href="#" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-layout"></i>
           <div data-i18n="Layouts">Users</div>
@@ -274,11 +274,11 @@ import { useLoginStore } from "~/stores/LoginStore";
 const userId = ref("");
 
 const loginStore = useLoginStore();
-onMounted(async () => {
-  setTimeout(async () => {
-    userId.value = await loginStore.getUserId;
-  }, 1000);
-});
+onMounted(async () => {});
+
+setTimeout(async () => {
+  userId.value = await loginStore.getUserId;
+}, 2000);
 
 const getUserID = computed(() => {
   return userId.value == 1 ? true : false;
