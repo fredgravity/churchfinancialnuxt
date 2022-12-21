@@ -23,12 +23,26 @@
         </a>
       </li>
 
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-collection"></i>
-          <div data-i18n="Basic">Profile</div>
+      <li class="menu-item" v-if="userId == 1">
+        <a href="#" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">Users</div>
         </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/user" class="menu-link">
+              <div data-i18n="Without menu">User</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/register" class="menu-link">
+              <div data-i18n="Without navbar">Register</div>
+            </a>
+          </li>
+        </ul>
       </li>
+
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Membership</span>
       </li>
@@ -255,6 +269,18 @@
   <!-- / Menu -->
 </template>
 
-<script>
-export default {};
+<script setup>
+import { useLoginStore } from "~/stores/LoginStore";
+const userId = ref("");
+
+const loginStore = useLoginStore();
+onMounted(async () => {
+  setTimeout(async () => {
+    userId.value = await loginStore.getUserId;
+  }, 1000);
+});
+
+const getUserID = computed(() => {
+  return userId.value == 1 ? true : false;
+});
 </script>

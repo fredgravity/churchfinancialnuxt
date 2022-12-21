@@ -202,7 +202,7 @@ let submitTraining = async () => {
   if (error.value) {
     show.state = "show";
     show.message_type = "error";
-    show.message = "Training added successfully!. Try again";
+    show.message = "Training not added successfully!. Try again";
     show.title = "Add Training";
     setTimeout(() => {
       show.state = "hide";

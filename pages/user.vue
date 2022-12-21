@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="p-2 border-b border-blue-300 mb-2">training item</div>
+    <div class="p-2 border-b border-blue-300 mb-2">user</div>
     <Loading :loading="loading" />
 
     <div>
-      <AgGrid :results="trainingItems" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
+      <AgGrid :results="users" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
     </div>
   </div>
 </template>
@@ -12,16 +12,16 @@
 <script setup>
 import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
-const trainingItems = reactive([]);
+const users = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
 
 const columnDefs = reactive([
-  { headerName: "Training", field: "name" },
-  { headerName: "Start Date", field: "startDate" },
-  { headerName: "End Date", field: "endDate" },
-  { headerName: "Venue", field: "venue" },
-  { headerName: "Organised By", field: "ministry_name" },
+  { headerName: "Name", field: "name" },
+  { headerName: "Email", field: "email" },
+  { headerName: "Role", field: "role" },
+  { headerName: "Created On", field: "created_at" },
+
   // { headerName: "Status", field: "status" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
@@ -35,7 +35,7 @@ onMounted(async () => {
   const loginStore = useLoginStore();
   const accessToken = await loginStore.getAccessToken;
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/training-item", {
+  const { data, error, refresh, pending } = await useFetch(api_base + "/users", {
     method: "get",
     headers: {
       "Content-Type": "application/json",
@@ -46,15 +46,13 @@ onMounted(async () => {
     initialCache: false,
   });
   loading.value = pending.value;
-  trainingItems.value = data.value.data;
-  rowData.value = trainingItems.value.map((res) => {
+  users.value = data.value;
+  rowData.value = users.value.map((res) => {
     let mine = {
-      name: res.attributes.name,
-      venue: res.attributes.venue,
-      startDate: res.attributes.startDate,
-      endDate: res.attributes.endDate,
-      ministry_name: res.attributes.ministry_name,
-      ministry_id: res.attributes.ministry_id,
+      name: res.name,
+      email: res.email,
+      role: res.role,
+      created_at: new Date(res.created_at).toDateString(),
       id: res.id,
     };
     return mine;

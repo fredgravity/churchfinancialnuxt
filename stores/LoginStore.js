@@ -7,7 +7,8 @@ export const useLoginStore = defineStore('login', {
             accessToken: (JSON.parse(localStorage.getItem('accessToken')) || ''),
         },
         error: '',
-        api_base: useRuntimeConfig().public.apiBase
+        api_base: useRuntimeConfig().public.apiBase,
+        user_id: ''
     }),
     getters:{
         getUser: async (state) => {
@@ -21,6 +22,9 @@ export const useLoginStore = defineStore('login', {
         getAccessToken: async (state) =>{
          
             return  state.token
+        },
+        getUserId: async (state)=>{
+            return state.user_id
         }
     },
     actions: {
@@ -79,6 +83,10 @@ export const useLoginStore = defineStore('login', {
 
             }
             
-          }
+          },
+
+        async setUserID(userId){
+            return this.$state.user_id = userId
+        }
     }
 })

@@ -20,7 +20,8 @@ onMounted(async () => {
     },
     initialCache: false,
   });
-  if (!data.value) {
+  loginStore.setUserID(data.value[1]);
+  if (!data.value[0]) {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
   }
