@@ -286,11 +286,14 @@ onMounted(async () => {
     },
     initialCache: false,
   });
-  userId.value = data.value[1];
-  loginStore.setUserID(data.value[1]);
-  if (!data.value[0]) {
+  console.log(data.value);
+  if (!data.value) {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
+  } else {
+    alert();
+    userId.value = data.value[1];
+    loginStore.setUserID(data.value[1]);
   }
 });
 </script>
