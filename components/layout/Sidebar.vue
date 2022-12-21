@@ -23,7 +23,7 @@
         </a>
       </li>
 
-      <li class="menu-item" v-if="getUserID">
+      <li class="menu-item" v-if="userId == 1">
         <a href="#" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-layout"></i>
           <div data-i18n="Layouts">Users</div>
@@ -271,16 +271,26 @@
 
 <script setup>
 import { useLoginStore } from "~/stores/LoginStore";
-const userId = ref("");
-
+const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
-onMounted(async () => {});
+const accessToken = await loginStore.getAccessToken;
 
-setTimeout(async () => {
-  userId.value = await loginStore.getUserId;
-}, 2000);
-
-const getUserID = computed(() => {
-  return userId.value == 1 ? true : false;
+const userId = ref();
+onMounted(async () => {
+  const { data, error, refresh } = await useFetch(api_base + "/checkauth", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + accessToken.accessToken,
+    },
+    initialCache: false,
+  });
+  userId.value = data.value[1];
+  loginStore.setUserID(data.value[1]);
+  if (!data.value[0]) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+  }
 });
 </script>
