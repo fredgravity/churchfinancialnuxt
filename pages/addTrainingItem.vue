@@ -2,9 +2,8 @@
   <div>
     <div class="p-2 border-b border-blue-300 mb-2">add training item</div>
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -20,6 +19,13 @@
           <label for="startDate" class="col-md-2 col-form-label">Start Date</label>
           <div class="col-md-10">
             <input class="form-control" type="date" id="startDate" v-model="trainingItem.startDate" />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="venue" class="col-md-2 col-form-label">Venue</label>
+          <div class="col-md-10">
+            <input class="form-control" type="text" id="venue" v-model="trainingItem.venue" />
           </div>
         </div>
 
@@ -55,11 +61,19 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
+
 const trainingItem = reactive({
   name: "",
   startDate: "",
   endDate: "",
   ministry_id: "",
+  venue: "",
 });
 
 const error_message = ref("");
@@ -92,16 +106,27 @@ let submitTrainingItem = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    error_message.value = "Training item added successfully!";
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Training item not added successfully!. Try again";
+    show.title = "Add District";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+  } else {
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Training item added successfully!";
+    show.title = "Add District";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     trainingItem.name = "";
     trainingItem.startDate = "";
     trainingItem.endDate = "";
     trainingItem.ministry_id = "";
+    trainingItem.venue = "";
   }
 };
 </script>

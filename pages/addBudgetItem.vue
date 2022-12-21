@@ -2,9 +2,8 @@
   <div>
     <div class="p-2 border-b border-blue-300 mb-2">add budget item</div>
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -65,7 +64,12 @@ const budgetItem = reactive({
   ministry_id: "",
 });
 
-const error_message = ref("");
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 
 onMounted(async () => {
   const { data, error, refresh } = await useFetch(api_base + "/ministry", {
@@ -95,12 +99,23 @@ let submitBudgetItem = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Budget Item not added successfully!. Try again";
+    show.title = "Add Budget Item";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
   }
   if (data.value.data) {
-    error_message.value = "Budget item added successfully!";
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Budget Item added successfully!";
+    show.title = "Add Budget Item";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     budgetItem.name = "";
     budgetItem.year = "";
     budgetItem.type = "";

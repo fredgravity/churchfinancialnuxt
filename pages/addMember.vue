@@ -2,9 +2,8 @@
   <div>
     <div class="p-2 border-b border-blue-300 mb-2">add member</div>
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -103,6 +102,12 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const ministries = reactive([]);
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 
 // console.log(assemblies);
 
@@ -150,7 +155,6 @@ const member = reactive({
 });
 
 let submitMember = async () => {
-  console.log(member);
   const { data, error, refresh } = await useFetch(api_base + "/member", {
     method: "post",
     headers: {
@@ -162,12 +166,22 @@ let submitMember = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    error_message.value = "Church member added successfully!";
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Church member not added successfully!. Try again";
+    show.title = "Add Member";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+  } else {
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Church member added successfully!.";
+    show.title = "Add Member";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     member.name = "";
     member.email = "";
     member.home_town = "";

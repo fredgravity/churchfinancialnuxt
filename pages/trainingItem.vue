@@ -20,6 +20,7 @@ const columnDefs = reactive([
   { headerName: "Training", field: "name" },
   { headerName: "Start Date", field: "startDate" },
   { headerName: "End Date", field: "endDate" },
+  { headerName: "Venue", field: "venue" },
   { headerName: "Organised By", field: "ministry_name" },
   // { headerName: "Status", field: "status" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
@@ -50,6 +51,7 @@ onMounted(async () => {
   rowData.value = trainingItems.value.map((res) => {
     let mine = {
       name: res.attributes.name,
+      venue: res.attributes.venue,
       startDate: res.attributes.startDate,
       endDate: res.attributes.endDate,
       ministry_name: res.attributes.ministry_name,

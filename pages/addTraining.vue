@@ -2,9 +2,8 @@
   <div>
     <div class="p-2 border-b border-blue-300 mb-2">add training</div>
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -63,6 +62,13 @@
         </div>
 
         <div class="mb-3 row">
+          <label for="venue" class="col-md-2 col-form-label">Venue</label>
+          <div class="col-md-10">
+            <input class="form-control" type="text" id="venue" v-model="training.venue" />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
           <label for="ministry" class="col-md-2 col-form-label">Ministry</label>
           <div class="col-md-10">
             <input class="form-control" type="text" id="endDate" v-model="training.ministry" />
@@ -109,6 +115,12 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const trainingItems = reactive([]);
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 const training = reactive({
   training_item_id: "",
   participant: "",
@@ -117,6 +129,7 @@ const training = reactive({
   email: "",
   startDate: "",
   endDate: "",
+  venue: "",
   ministry: "",
   assembly: "",
   district: "",
@@ -144,9 +157,10 @@ const getTraining = async (event) => {
   let result = trainingItems.value.filter((res) => {
     return res.id == event.target.value;
   });
-  console.log(result[0].attributes.name);
+
   training.startDate = result[0].attributes.startDate;
   training.endDate = result[0].attributes.endDate;
+  training.venue = result[0].attributes.venue;
   training.ministry = result[0].attributes.ministry_name;
 };
 
@@ -154,7 +168,7 @@ const getAssembly = async (event) => {
   let result = assemblies.value.filter((res) => {
     return res.id == event.target.value;
   });
-  console.log(result[0].attributes.name);
+
   training.district = result[0].attributes.district;
   training.area = result[0].attributes.area.name;
 };
@@ -170,12 +184,10 @@ onMounted(async () => {
     initialCache: false,
   });
 
-  console.log(data.value.data);
   trainingItems.value = data.value.data;
 });
 
 let submitTraining = async () => {
-  console.log("hi");
   const { data, error, refresh } = await useFetch(api_base + "/training", {
     method: "post",
     headers: {
@@ -187,18 +199,29 @@ let submitTraining = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    error_message.value = "Training added successfully!";
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Training added successfully!. Try again";
+    show.title = "Add Training";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+  } else {
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Training added successfully!";
+    show.title = "Add Training";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     training.training_item_id = "";
     training.startDate = "";
     training.endDate = "";
     training.ministry = "";
     training.participant = "";
     training.position = "";
+    training.venue = "";
     training.phone = "";
     training.assembly = "";
     training.area = "";

@@ -4,9 +4,8 @@
 
     <Loading :loading="loading" />
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
     <div class="mb-3 row">
       <label for="assembly" class="col-md-2 col-form-label">Find Assembly</label>
@@ -117,6 +116,12 @@ const assemblies = reactive([]);
 const error_message = ref("");
 const detail = ref("");
 const assembly_id = ref("");
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 const tithe = reactive({
   amount: "",
   paidby: "",
@@ -162,8 +167,22 @@ const submitTithe = async () => {
 
   loading.value = pending.value;
 
-  if (data.value.data) {
-    error_message.value = "Tithe paid added successfully!";
+  if (error.value) {
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Tithe not paid successfully!. Try again";
+    show.title = "Pay Tithe";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+  } else {
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Tithe paid successfully!.";
+    show.title = "Pay Tithe";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     tithe.amount = "";
     tithe.paidby = "";
   }

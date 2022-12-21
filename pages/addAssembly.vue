@@ -4,9 +4,8 @@
       <div class="p-2 border-b border-blue-300 mb-2">add assembly</div>
     </div>
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -81,7 +80,12 @@ const areas = ref([]);
 const districts = ref([]);
 const filteredDistricts = ref([]);
 
-const error_message = ref("");
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 
 const assembly = reactive({
   name: "",
@@ -141,13 +145,23 @@ let submitAssembly = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Church Assembly not added successfully!. Try again";
+    show.title = "Add Assembly";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+  } else {
     // alert();
-    error_message.value = "Church Assembly added successfully!";
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Church Assembly added successfully!";
+    show.title = "Add Assembly";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     assembly.name = "";
     assembly.area_id = "";
     assembly.district = "";

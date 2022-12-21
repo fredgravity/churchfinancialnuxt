@@ -4,9 +4,9 @@
       <div class="p-2 border-b border-blue-300 mb-2">add district</div>
     </div>
     <Loading :loading="loading" />
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    <div v-if="show">
+      <Alert :alert="show" />
     </div>
 
     <div class="card-body md:w-1/2 mx-auto bg-gray-100 shadow-sm mb-4 p-2">
@@ -44,8 +44,12 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const areas = reactive([]);
 const loading = ref("");
-
-const error_message = ref("");
+const show = reactive({
+  state: "hide",
+  message_type: "",
+  message: "",
+  title: "",
+});
 
 const district = reactive({
   name: "",
@@ -80,13 +84,24 @@ let submitDistrict = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
+    show.state = "show";
+    show.message_type = "error";
+    show.message = "Church District not added successfully!. Try again";
+    show.title = "Add District";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
+    // error_message.value = error.value.data.message;
+  } else {
     // alert();
-    error_message.value = "Church District added successfully!";
+    show.state = "show";
+    show.message_type = "";
+    show.message = "Church District added successfully!";
+    show.title = "Add District";
+    setTimeout(() => {
+      show.state = "hide";
+    }, 5000);
     district.name = "";
     district.area_id = "";
   }
