@@ -291,7 +291,6 @@ onMounted(async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
   } else {
-    alert();
     userId.value = data.value[1];
     loginStore.setUserID(data.value[1]);
   }
